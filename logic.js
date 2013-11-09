@@ -21,13 +21,12 @@ function supports_html5_storage() {
 
 
 function updateTime(newTab){
+  var timeNow = new Date().getTime(); 
+  
   if (curTab == null){
     console.log("curTab was null");
-    curTab = newTab;
-    curTab_start = new Date().getTime();
-    return;
   }
-  var timeNow = new Date().getTime(); 
+  else{
 
   var domain = getDomain(curTab.url);
   var timeAccum = localStorage[domain]; //The time previously saved for this url
@@ -38,9 +37,10 @@ function updateTime(newTab){
   var updatedAccum = parseInt(timeNow)-parseInt(curTab_start) + parseInt(timeAccum);
   localStorage.setItem(domain, updatedAccum);
   console.log("domain " + domain + " has added " + (timeNow - curTab_start) + "ms for a total of " + updatedAccum);
-
+  }
   curTab = newTab;
   curTab_start = timeNow;
+  chrome.tabs.executeScript(curTab.tabId, {code:'alert("hello!");'});
 
 }
 
@@ -48,7 +48,10 @@ function getDomain(url){
 
   var re = new RegExp(":\/\/(.[^/]+)");
   var more = url.match(re)[1].split(".");
-  return more[more.length-2];
+  ret = more[more.length-2];
+  if (ret == null)
+    ret = "other";
+  return ret;
 }
 
 //When a different tab takes focus
