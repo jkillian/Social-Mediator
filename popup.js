@@ -29,6 +29,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 
 function updateTime(newTab){
   if (curTab == null){
+    console.log("curTab was null");
     curTab = newTab;
     curTab_start = new Date().getTime();
     return;
@@ -61,8 +62,6 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
   
     console.log("Activated tab is " + activeInfo.tabId);
   chrome.tabs.get(activeInfo.tabId, function(tab) {
-    if (tab == undefined)
-      console.log("Updated tab is undefined");
     updateTime(tab);
   });
 
@@ -79,6 +78,12 @@ console.log("removed " + tabId)
 chrome.windows.onFocusChanged.addListener(function(windowId) {
 
 console.log("new windowFocus: " + windowId + " none is (" + chrome.windows.WINDOW_ID_NONE + ")");
+if (windowId == chrome.windows.WINDOW_ID_NONE)
+  updateTime(null);
+else
+    chrome.tabs.query({active:true , currentWindow:true}, function(result) {
+      updateTime(result[0]);
+  });
 
 });
 
