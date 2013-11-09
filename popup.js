@@ -3,25 +3,73 @@ document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM Loaded');
 });
 
-var time = new Date().getTime();
+var curTab_start = new Date().getTime();
+var curTab;
+localStorage.clear();
 
+
+
+function supports_html5_storage() {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+  } catch (e) {
+    return false;
+  }
+}
+
+//Usually, when a tab changes url
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
   console.log('Tab updated' + tabId);
-  if(changeInfo.url) {
-    console.log("Now url: " + changeInfo.url);
+  console.log("new tab url " + tab.url);
+  if (tab == "undefined")
+    console.log("Updated tab is undefined");
+  updateTime(tab);
+});
+
+
+function updateTime(newTab){
+  if (curTab == null){
+    console.log("curTab was null");
+    curTab = newTab;
+    curTab_start = new Date().getTime();
+    return;
   }
-});
+  var timeNow = new Date().getTime(); 
+  
+  var domain = getDomain(curTab.url);
+  var timeAccum = localStorage[domain]; //The time previously saved for this url
+  if (isNaN(timeAccum))   //Presumably because this url hasn't been visited before
+    timeAccum = 0;
 
+
+  var updatedAccum = parseInt(timeNow)-parseInt(curTab_start) + parseInt(timeAccum);
+  localStorage.setItem(domain, updatedAccum);
+  console.log("domain " + domain + " has added " + (timeNow - curTab_start) + "ms for a total of " + updatedAccum);
+
+  curTab = newTab;
+  curTab_start = timeNow;
+
+}
+
+function getDomain(url){
+
+  var re = new RegExp(":\/\/(.[^/]+)");
+  var more = url.match(re)[1].split(".");
+  return more[more.length-2];
+}
+
+//When a different tab takes focus
 chrome.tabs.onActivated.addListener(function(activeInfo) {
-  console.log('activated!' + activeInfo.tabId)
+  
+    console.log("Activated tab is " + activeInfo.tabId);
   chrome.tabs.get(activeInfo.tabId, function(tab) {
-    var time2 = new Date().getTime();
-    console.log('tab url:' + tab.url + " time: " + (time2-time));
-    time = time2;
+    updateTime(tab);
   });
+
 });
 
 
+//When a tab closes
 chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
 
 console.log("removed " + tabId)
@@ -31,5 +79,19 @@ console.log("removed " + tabId)
 chrome.windows.onFocusChanged.addListener(function(windowId) {
 
 console.log("new windowFocus: " + windowId + " none is (" + chrome.windows.WINDOW_ID_NONE + ")");
+if (windowId == chrome.windows.WINDOW_ID_NONE)
+  updateTime(null);
+else
+    chrome.tabs.query({active:true , currentWindow:true}, function(result) {
+      updateTime(result[0]);
+  });
 
 });
+
+
+
+
+
+
+
+
