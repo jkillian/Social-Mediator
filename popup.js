@@ -17,14 +17,7 @@ function supports_html5_storage() {
   }
 }
 
-//Usually, when a tab changes url
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-  console.log('Tab updated' + tabId);
-  console.log("new tab url " + tab.url);
-  if (tab == "undefined")
-    console.log("Updated tab is undefined");
-  updateTime(tab);
-});
+
 
 
 function updateTime(newTab){
@@ -35,7 +28,7 @@ function updateTime(newTab){
     return;
   }
   var timeNow = new Date().getTime(); 
-  
+
   var domain = getDomain(curTab.url);
   var timeAccum = localStorage[domain]; //The time previously saved for this url
   if (isNaN(timeAccum))   //Presumably because this url hasn't been visited before
@@ -68,12 +61,13 @@ chrome.tabs.onActivated.addListener(function(activeInfo) {
 
 });
 
-
-//When a tab closes
-chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
-
-console.log("removed " + tabId)
-
+//Usually, when a tab changes url
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+  console.log('Tab updated' + tabId);
+  console.log("new tab url " + tab.url);
+  if (tab == "undefined")
+    console.log("Updated tab is undefined");
+  updateTime(tab);
 });
 
 chrome.windows.onFocusChanged.addListener(function(windowId) {

@@ -5,7 +5,8 @@
 
    "description": "Clever description!",
    "permissions": [
-    "tabs"
+    "tabs",
+    "activeTab"
   ],
 
   "browser_action": {
@@ -18,5 +19,11 @@
 
   "background": {
     "scripts": ["popup.js", "statsPageBG.js"]
-  }
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["black.js"]
+    }]
 }
