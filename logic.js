@@ -40,7 +40,7 @@ function updateTime(newTab){
   }
   curTab = newTab;
   curTab_start = timeNow;
-  chrome.tabs.executeScript(curTab.tabId, {code:'alert("hello!");'});
+  chrome.tabs.executeScript(null, {file:"black.js"});
 
 }
 
