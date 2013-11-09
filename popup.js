@@ -35,11 +35,12 @@ function updateTime(newTab){
     return;
   }
   var timeNow = new Date().getTime(); 
-  var timeAccum = localStorage[curTab.url]; //The time previously saved for this url
+  
+  var domain = getDomain(curTab.url);
+  var timeAccum = localStorage[domain]; //The time previously saved for this url
   if (isNaN(timeAccum))   //Presumably because this url hasn't been visited before
     timeAccum = 0;
 
-  var domain = getDomain(curTab.url);
 
   var updatedAccum = parseInt(timeNow)-parseInt(curTab_start) + parseInt(timeAccum);
   localStorage.setItem(domain, updatedAccum);
