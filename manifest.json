@@ -17,6 +17,6 @@
   },
 
   "background": {
-    "scripts": ["popup.js", "statsPage.js"]
+    "scripts": ["popup.js", "statsPageBG.js"]
   }
 }
