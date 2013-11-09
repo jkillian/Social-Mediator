@@ -5,8 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 var curTab_start = new Date().getTime();
 var curTab;
-localStorage.clear();
-
 
 
 function supports_html5_storage() {

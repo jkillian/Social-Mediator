@@ -1,8 +1,8 @@
 <html>
    <head>
       <title>Browsing Stats</title>
-      <style src="lib/ivory.css"></style>
-      <style src="statsPage.css"></style>
+      <link href="lib/ivory.css" rel="stylesheet" type="text/css"/>
+      <link href="statsPage.css" rel="stylesheet" type="text/css"/>
       <script src="lib/jquery-2.0.3.js"></script>
       <script src="lib/chart.js"></script>
       <script src="statsPage.js"></script>
@@ -10,8 +10,20 @@
    <body>
    <div class="g960">
       <div class="row space-bot">
-         <div class="c8 centered first" id="overviewChartDiv">
-            <canvas id="overviewChart" width="600" height="600"></canvas>
+         <div class="c8 centered first" id="topSitesChartDiv">
+            <canvas id="topSitesChart" width="600" height="600"></canvas>
+         </div>
+      </div>
+      <div class="row space-bot">
+         <div class="c6 centered first">
+            <h4 class="text-center">Top 5 Sites</h4>
+            <table id="topSitesTable">
+               <thead>
+                  <tr><th>Color</th><th>Site</th><th>Time (HH:MM:SS)</th></tr>
+               </thead>
+               <tbody>
+               </tbody>
+            </table>
          </div>
       </div>
    </div>
