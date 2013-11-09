@@ -1,11 +1,19 @@
 <html>
    <head>
       <title>Browsing Stats</title>
+      <style src="lib/ivory.css"></style>
+      <style src="statsPage.css"></style>
       <script src="lib/jquery-2.0.3.js"></script>
       <script src="lib/chart.js"></script>
       <script src="statsPage.js"></script>
    </head>
    <body>
-      <canvas id="overviewChart" width="400" height="400"></canvas>
+   <div class="g960">
+      <div class="row space-bot">
+         <div class="c8 centered first" id="overviewChartDiv">
+            <canvas id="overviewChart" width="600" height="600"></canvas>
+         </div>
+      </div>
+   </div>
    </body>
 </html>
