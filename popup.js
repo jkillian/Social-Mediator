@@ -38,14 +38,22 @@ function updateTime(newTab){
   if (isNaN(timeAccum))   //Presumably because this url hasn't been visited before
     timeAccum = 0;
 
+  var domain = getDomain(curTab.url);
 
   var updatedAccum = parseInt(timeNow)-parseInt(curTab_start) + parseInt(timeAccum);
-  localStorage.setItem(curTab.url, updatedAccum);
-  console.log("url " + curTab.url + " has added " + (timeNow - curTab_start) + "ms for a total of " + updatedAccum);
+  localStorage.setItem(domain, updatedAccum);
+  console.log("domain " + domain + " has added " + (timeNow - curTab_start) + "ms for a total of " + updatedAccum);
 
   curTab = newTab;
   curTab_start = timeNow;
 
+}
+
+function getDomain(url){
+
+  var re = new RegExp(":\/\/(.[^/]+)");
+  var more = url.match(re)[1].split(".");
+  return more[more.length-2];
 }
 
 //When a different tab takes focus
