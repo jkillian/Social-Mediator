@@ -8,7 +8,7 @@
  *
  * @type {string}
  */
-var QUERY = 'dogs';
+var QUERY = 'kittens';
 
 var kittenGenerator = {
   /**
@@ -36,7 +36,6 @@ var kittenGenerator = {
    * @public
    */
   requestKittens: function() {
-
     var req = new XMLHttpRequest();
     req.open("GET", this.searchOnFlickr_, true);
     req.onload = this.showPhotos_.bind(this);
@@ -83,7 +82,4 @@ document.addEventListener('DOMContentLoaded', function () {
   kittenGenerator.requestKittens();
 });
 
-chrome.tabs.onCreated.addListener(function(tabId, changeInfo, tab) {
-  console.log('Tab updated' + tabId + " changeInfo " + changeInfo.URL);
 
-};)
