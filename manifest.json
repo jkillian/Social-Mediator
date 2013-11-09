@@ -1,0 +1,8 @@
+{
+   "manifest_version": 2,
+   "name": "Social Mediator",
+   "version": "0.0.1",
+
+   "default_locale": "en",
+   "description": "Don't let social media control your life...",
+}
