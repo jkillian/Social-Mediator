@@ -121,7 +121,9 @@ function updateScreen() {
       for(var i=0; i<numSites; ++i)
       {
          var key = localStorage.key(i);
-         returnData[key] = localStorage.getItem(key)/1000;
+         if(key.indexOf('time://') == -1) {
+            returnData[key] = localStorage.getItem(key)/1000;
+         } 
       }
       return returnData;
    }
