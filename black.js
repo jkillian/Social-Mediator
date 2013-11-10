@@ -15,7 +15,6 @@ function doSomething (curOpac)
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-  	alert('message receieved!');
     curOpac = parseFloat(request.greeting);
     elem.style.opacity = curOpac;
     setTimeout ( "doSomething(" + curOpac + ")", 1000 );

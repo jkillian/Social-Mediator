@@ -6,7 +6,8 @@
    "description": "Clever description!",
    "permissions": [
     "tabs",
-    "storage"
+    "storage",
+    "*://*/*"
   ],
 
   "browser_action": {
