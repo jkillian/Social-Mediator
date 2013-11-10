@@ -1,4 +1,5 @@
 curOpac = 1;
+alert("boats");
 var elem = document.getElementsByTagName("body")[0];
 
 function doSomething (curOpac)
@@ -19,3 +20,6 @@ chrome.runtime.onMessage.addListener(
     elem.style.opacity = curOpac;
     setTimeout ( "doSomething(" + curOpac + ")", 1000 );
   });
+
+alert("Food");
+window.food = "heyo";

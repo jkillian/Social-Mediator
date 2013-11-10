@@ -46,7 +46,6 @@ function updateTime(newTab){
   // });
 
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    alert('hi!');
   chrome.tabs.sendMessage(tabs[0].id, {greeting: "1"}, function(response) {
     console.log(response.farewell);
   });
