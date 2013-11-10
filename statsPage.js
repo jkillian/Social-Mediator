@@ -15,8 +15,11 @@ $(updateScreen);
 
 function updateScreen() {
    var siteData = getSiteDataFromStorage();
+   var sortedData;
    setTopInfo();
    drawTopSitesChart();
+   drawWatchedSitesChart();
+   createAllSitesTable();
 
    function setTopInfo() {
       var totalTimeSecs = 0;
@@ -45,11 +48,12 @@ function updateScreen() {
          return site2.secondsOnSite - site1.secondsOnSite ;
       });
 
+      sortedData = dataArr;
+
       var chartData = [];
       for(var i=0; i<dataArr.length && i<NUM_TOP_SITES; ++i) {
          var site = dataArr[i];
          var color = COLORS[i % COLORS.length];
-         var minutes = secondsToMinutes(site.secondsOnSite);
          chartData.push({value: site.secondsOnSite, color: color });
          $('#topSitesTable > tbody:last').append('<tr><td><div class="square" style="background-color:' + color + '"></div></td><td>' + site.site + '</td><td>' + site.secondsOnSite.toHHMMSS() +  '</td></tr>');
          console.log("Site: " + site.site + " Time: " + site.secondsOnSite + " Color: " + color);
@@ -57,6 +61,57 @@ function updateScreen() {
 
       var ctx = document.getElementById("topSitesChart").getContext("2d");
       var myNewChart = new Chart(ctx).Doughnut(chartData, {});
+   }
+
+   function drawWatchedSitesChart() {
+   
+      resizeCanvas('watchedSitesChart');
+
+      var COLORS = ["#A60321", "#048C7F", "#04BF7B", "#F2CA50", "#D93D04"];
+
+      chrome.storage.local.get('watchedSites', function(data){
+         var watchedSites = data.watchedSites;
+         if(!watchedSites || watchedSites.length == 0) {
+
+         }
+         else {
+            var dataArr = [];
+            for(var i =0; i<watchedSites.length; ++i) {
+               var domain = watchedSites[i];
+               if(siteData[domain]) {
+                  dataArr.push({site: domain, secondsOnSite: siteData[domain]});
+               }
+               else {
+                  dataArr.push({site: domain, secondsOnSite: 0});
+               }
+            }
+
+            dataArr.sort(function(site1, site2) {
+               return site2.secondsOnSite - site1.secondsOnSite ;
+            });
+
+            var chartData = [];
+            for(var i=0; i<dataArr.length; ++i) {
+               var site = dataArr[i];
+               var color = COLORS[i % COLORS.length];
+               chartData.push({value: site.secondsOnSite, color: color });
+               $('#watchedSitesTable > tbody:last').append('<tr><td><div class="square" style="background-color:' + color + '"></div></td><td>' + site.site + '</td><td>' + site.secondsOnSite.toHHMMSS() +  '</td></tr>');
+               console.log("Site: " + site.site + " Time: " + site.secondsOnSite + " Color: " + color);
+            }
+
+            var ctx = document.getElementById("watchedSitesChart").getContext("2d");
+            var myNewChart = new Chart(ctx).Doughnut(chartData, {});
+
+         }
+      }); 
+   }
+
+   function createAllSitesTable() {
+      for(var i=0; i<sortedData.length; ++i) {
+         var site = sortedData[i];
+         $('#allSitesTable > tbody:last').append('<tr><td>' + (i+1) + '</td><td>' + site.site + '</td><td>' + site.secondsOnSite.toHHMMSS() +  '</td></tr>');
+      }
+      
    }
 
 
@@ -77,11 +132,5 @@ function updateScreen() {
       var canvas = document.getElementById(canvasId);
       canvas.height = cDiv.innerHeight();
       canvas.width = cDiv.innerWidth();
-   }
-
-   function secondsToMinutes(secs) {
-      var mins = secs/60;
-      mins = Math.round(mins*100)/100;
-      return mins;
    }
 }

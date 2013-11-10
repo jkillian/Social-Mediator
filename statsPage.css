@@ -14,3 +14,20 @@ div.square {
 td {
    text-align: center;
 }
+
+.alert {
+   display: none;
+}
+
+
+.addArea > span {
+    display: block;
+    overflow: hidden;
+    padding-right: 10px
+}
+.addArea input[type=text] {
+    width: 100%
+}
+.addArea button {
+    float: right
+}

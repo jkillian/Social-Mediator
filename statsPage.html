@@ -11,8 +11,8 @@
    <div class="g960">
       <div class="row space-bot">
          <div class="c6 centered first">
-            <h1 class="text-center">Social Mediator</h1>
-            <h2 class="text-center" id="totalTime"></h2>
+            <h2 class="text-center">Social Mediator</h1>
+            <h3 class="text-center" id="totalTime"></h2>
          </div>
       </div>   
 
@@ -36,43 +36,39 @@
       </div>
       <hr/>
 
-            <div class="tab-container">
-               <label class="tab-label">
-                  <input class="tab-radio" type="radio" name="page" value="page1" checked="checked"/>
-                  <div class="tab">Tab 1</div>
-                  <div class="tab-page" id="page1">
-                     Tab1 - Lorem ipsum dolor sit amet. Nues conos grom bosic illes tren. Wilias tos serum kai pen da vatre. Da last der Mullah 
-                     nicht mit sich scherzen. Zues ter pa beten karl tos serum ka vatre.
-                  </div>
-               </label>
-               <label class="tab-label">
-                  <input class="tab-radio" type="radio" name="page" value="page2" />
-                  <div class="tab">Tab 2</div>
-                  <div class="tab-page" id="page1">
-                     Tab2 - Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex. Lorem ipsum dolor sit amet, 
-                     consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
-                     nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
-                     velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
-                     deserunt mollit anim.Lorem ipsum dolor sit amet. 
-                  </div>
-               </label>
-               <label class="tab-label">
-                  <input class="tab-radio" type="radio" name="page" value="page3" />
-                  <div class="tab">Tab 3</div>
-                  <div class="tab-page" id="page1">
-                     Tab3 - Lorem ipsum dolor sit amet. Wilias tos serum kai pen da vatre. Da last der Mullah nicht mit sich scherzen. Nues conos 
-                     grom bosic illes tren. Zues ter pa beten karl tos serum ka vatre.
-                  </div>
-               </label>
-               <label class="tab-label">
-                  <input class="tab-radio" type="radio" name="page" value="page4" />
-                  <div class="tab">Tab 4</div>
-                  <div class="tab-page" id="page1">
-                     Tab4 - Duto sem iskar sit amet. Nues conos grom bosic illes tren. Wilias tos serum kai pen da vatre. Da last der Mullah nicht 
-                     mit sich scherzen. Zues ter pa beten karl tos serum ka vatre.
-                  </div>
-               </label>
-            </div>
+      <div class="row space-bot">
+         <div class="c8 centered first" id="watchedSitesChartDiv">
+            <canvas id="watchedSitesChart" width="500" height="500"></canvas>
+         </div>
+      </div>
+      <div class="row space-bot">
+         <div class="c6 centered first">
+            <h4 class="text-center">Watched Sites</h4>
+            <table id="watchedSitesTable">
+               <thead>
+                  <tr><th>Color</th><th>Site</th><th>Time (HH:MM:SS)</th></tr>
+               </thead>
+               <tbody>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <hr/>
+
+      <div class="row space-bot">
+         <div class="c6 centered first">
+            <h4 class="text-center">All Sites</h4>
+            <table id="allSitesTable">
+               <thead>
+                  <tr><th>Rank</th><th>Site</th><th>Time (HH:MM:SS)</th></tr>
+               </thead>
+               <tbody>
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <hr/>
+
       </div>
    </body>
 </html>

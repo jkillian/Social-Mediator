@@ -6,8 +6,7 @@
    "description": "Clever description!",
    "permissions": [
     "tabs",
-    "<all_urls>",
-    "activeTab"
+    "storage"
   ],
 
   "browser_action": {
@@ -19,7 +18,9 @@
   },
 
   "background": {
-    "scripts": ["logic.js", "statsPageBG.js"]
-  }
-  
+
+    "scripts": ["popup.js", "statsPageBG.js"]
+  },
+
+  "options_page": "optionsPage.html"
 }
