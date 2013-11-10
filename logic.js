@@ -33,8 +33,13 @@ function updateTime(newTab){
 
 
   var updatedAccum = parseInt(timeNow)-parseInt(curTab_start) + parseInt(timeAccum);
+  chrome.tabs.sendMessage(curTab.id, {greeting: "getOpac"}, function(response) {
+    console.log("farewell " + response.farewell);
+    localStorage.setItem("opacity://" + domain, response.farewell);
+  });
   localStorage.setItem(domain, updatedAccum);
   localStorage.setItem("time://" + domain, timeNow);
+
   
   console.log("domain " + domain + " has added " + (timeNow - curTab_start) + "ms for a total of " + updatedAccum);
   }
@@ -44,12 +49,9 @@ function updateTime(newTab){
   // chrome.tabs.sendMessage(newTab.tabId, {greeting: "1"}, function(response) {
   //   console.log(response.farewell);
   // });
-
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-  chrome.tabs.sendMessage(tabs[0].id, {greeting: "1"}, function(response) {
-    console.log(response.farewell);
-  });
-});
+  curOpac = localStorage["opacity://" + getDomain(newTab.url)];
+  console.log('logic saved opac = ' + curOpac);
+  chrome.tabs.sendMessage(newTab.id, {greeting: curOpac});
 
 }
 
