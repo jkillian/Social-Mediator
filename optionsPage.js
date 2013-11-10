@@ -20,6 +20,10 @@ function updateScreen() {
     addRow($('#addFld').val());
    });
 
+   $('#clearBtn').click(function() {
+    localStorage.clear();
+   });
+
 
    function setWatchedSites(data) {
       for(var i=0; i<data.length; ++i) {
