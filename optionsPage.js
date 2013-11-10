@@ -22,6 +22,7 @@ function updateScreen() {
 
    $('#clearBtn').click(function() {
     localStorage.clear();
+    $('#dataClear').show().delay(3000).hide("fast");  
    });
 
 
@@ -75,12 +76,12 @@ function updateScreen() {
    }
 
    function showAlert(msg) {
-    $('div.alert').text(msg);
-    $('div.alert').show();
+    $('#addAlert').text(msg);
+    $('#addAlert').show();
    }
 
    function hideAlert() {
-    $('div.alert').hide();
+    $('#addAlert').hide();
    }
 }
 

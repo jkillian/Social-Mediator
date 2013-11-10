@@ -19,5 +19,7 @@
 
   "background": {
     "scripts": ["popup.js", "statsPageBG.js"]
-  }
+  },
+
+  "options_page": "optionsPage.html"
 }

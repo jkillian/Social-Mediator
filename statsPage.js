@@ -15,9 +15,11 @@ $(updateScreen);
 
 function updateScreen() {
    var siteData = getSiteDataFromStorage();
+   var sortedData;
    setTopInfo();
    drawTopSitesChart();
    drawWatchedSitesChart();
+   createAllSitesTable();
 
    function setTopInfo() {
       var totalTimeSecs = 0;
@@ -45,6 +47,8 @@ function updateScreen() {
       dataArr.sort(function(site1, site2) {
          return site2.secondsOnSite - site1.secondsOnSite ;
       });
+
+      sortedData = dataArr;
 
       var chartData = [];
       for(var i=0; i<dataArr.length && i<NUM_TOP_SITES; ++i) {
@@ -100,6 +104,14 @@ function updateScreen() {
 
          }
       }); 
+   }
+
+   function createAllSitesTable() {
+      for(var i=0; i<sortedData.length; ++i) {
+         var site = sortedData[i];
+         $('#allSitesTable > tbody:last').append('<tr><td>' + (i+1) + '</td><td>' + site.site + '</td><td>' + site.secondsOnSite.toHHMMSS() +  '</td></tr>');
+      }
+      
    }
 
 
