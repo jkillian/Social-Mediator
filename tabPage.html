@@ -1,0 +1,63 @@
+<html>
+   <head>
+      <title>Browsing Stats</title>
+      <link href="lib/ivory.css" rel="stylesheet" type="text/css"/>
+      <link href="statsPage.css" rel="stylesheet" type="text/css"/>
+      <script src="lib/jquery-2.0.3.js"></script>
+      <script src="lib/chart.js"></script>
+      <script src="statsPage.js"></script>
+   </head>
+   <body>
+   <div class="g960">
+      <div class="row space-bot">
+         <div class="c10 centered first">
+            <div class="tab-container">
+               <label class="tab-label">
+                  <input class="tab-radio" type="radio" name="page" value="page1" checked="checked"/>
+                  <div class="tab">Stats</div>
+                  <div class="tab-page" id="page1">
+                     <div class="row space-bot">
+                        <div class="c6 centered first">
+                           <h1 class="text-center">Social Mediator</h1>
+                           <h2 class="text-center" id="totalTime"></h2>
+                        </div>
+                     </div>   
+
+                     <hr/>
+                     <div class="row space-bot">
+                        <div class="c8 centered first" id="topSitesChartDiv">
+                           <canvas id="topSitesChart" width="500" height="500"></canvas>
+                        </div>
+                     </div>
+                     <div class="row space-bot">
+                        <div class="c6 centered first">
+                           <h4 class="text-center">Top 5 Sites</h4>
+                           <table id="topSitesTable">
+                              <thead>
+                                 <tr><th>Color</th><th>Site</th><th>Time (HH:MM:SS)</th></tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                           </table>
+                        </div>
+                     </div>
+                     <hr/>
+                  </div>
+               </label>
+               <label class="tab-label">
+                  <input class="tab-radio" type="radio" name="page" value="page2" />
+                  <div class="tab">Options</div>
+                  <div class="tab-page" id="page1">
+                     Tab2 - Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex. Lorem ipsum dolor sit amet, 
+                     consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
+                     nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate 
+                     velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
+                     deserunt mollit anim.Lorem ipsum dolor sit amet. 
+                  </div>
+               </label>
+            </div>
+         </div>
+      </div> 
+   </div>        
+   </body>
+</html>
