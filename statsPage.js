@@ -1,4 +1,4 @@
-   Number.prototype.toHHMMSS = function () {
+Number.prototype.toHHMMSS = function () {
     var seconds = Math.floor(this),
         hours = Math.floor(seconds / 3600);
     seconds -= hours*3600;
@@ -11,40 +11,52 @@
     return hours+':'+minutes+':'+seconds;
 };
 
-$(function() {
+$(updateScreen);
 
+function updateScreen() {
+   var siteData = getSiteDataFromStorage();
+   setTopInfo();
    drawTopSitesChart();
+
+   function setTopInfo() {
+      var totalTimeSecs = 0;
+      for(var key in siteData) {
+         totalTimeSecs += siteData[key];
+      }
+
+      $('#totalTime').text("Total Time Online: " + totalTimeSecs.toHHMMSS());
+   }
 
    function drawTopSitesChart() {
    
-   resizeCanvas('topSitesChart');
+      resizeCanvas('topSitesChart');
 
-   var NUM_TOP_SITES = 5;
-   var COLORS = ["#A60321", "#048C7F", "#04BF7B", "#F2CA50", "#D93D04"];
+      var NUM_TOP_SITES = 5;
+      var COLORS = ["#A60321", "#048C7F", "#04BF7B", "#F2CA50", "#D93D04"];
 
-   var siteData = getSiteDataFromStorage();
+      // Just do this once above
+      //var siteData = getSiteDataFromStorage();
 
-   var dataArr = [];
-   for(var domain in siteData) {
-      dataArr.push({site: domain, secondsOnSite: siteData[domain]/1000});
-   }
-   dataArr.sort(function(site1, site2) {
-      return site2.secondsOnSite - site1.secondsOnSite ;
-   });
+      var dataArr = [];
+      for(var domain in siteData) {
+         dataArr.push({site: domain, secondsOnSite: siteData[domain]});
+      }
+      dataArr.sort(function(site1, site2) {
+         return site2.secondsOnSite - site1.secondsOnSite ;
+      });
 
-   var chartData = [];
-   for(var i=0; i<dataArr.length && i<NUM_TOP_SITES; ++i) {
-      var site = dataArr[i];
-      var color = COLORS[i % COLORS.length];
-      var minutes = secondsToMinutes(site.secondsOnSite);
-      chartData.push({value: site.secondsOnSite, color: color });
-      $('#topSitesTable > tbody:last').append('<tr><td><div class="square" style="background-color:' + color + '"></div></td><td>' + site.site + '</td><td>' + site.secondsOnSite.toHHMMSS() +  '</td></tr>');
-      console.log("Site: " + site.site + " Time: " + site.secondsOnSite + " Color: " + color);
-   }
+      var chartData = [];
+      for(var i=0; i<dataArr.length && i<NUM_TOP_SITES; ++i) {
+         var site = dataArr[i];
+         var color = COLORS[i % COLORS.length];
+         var minutes = secondsToMinutes(site.secondsOnSite);
+         chartData.push({value: site.secondsOnSite, color: color });
+         $('#topSitesTable > tbody:last').append('<tr><td><div class="square" style="background-color:' + color + '"></div></td><td>' + site.site + '</td><td>' + site.secondsOnSite.toHHMMSS() +  '</td></tr>');
+         console.log("Site: " + site.site + " Time: " + site.secondsOnSite + " Color: " + color);
+      }
 
-   var ctx = document.getElementById("topSitesChart").getContext("2d");
-   var myNewChart = new Chart(ctx).Doughnut(chartData, {});
-
+      var ctx = document.getElementById("topSitesChart").getContext("2d");
+      var myNewChart = new Chart(ctx).Doughnut(chartData, {});
    }
 
 
@@ -54,7 +66,7 @@ $(function() {
       for(var i=0; i<numSites; ++i)
       {
          var key = localStorage.key(i);
-         returnData[key] = localStorage.getItem(key);
+         returnData[key] = localStorage.getItem(key)/1000;
       }
       return returnData;
    }
@@ -72,5 +84,4 @@ $(function() {
       mins = Math.round(mins*100)/100;
       return mins;
    }
-});
-
+}
