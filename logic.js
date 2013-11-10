@@ -34,11 +34,23 @@ function updateTime(newTab){
 
   var updatedAccum = parseInt(timeNow)-parseInt(curTab_start) + parseInt(timeAccum);
   localStorage.setItem(domain, updatedAccum);
+  localStorage.setItem("time://" + domain, timeNow);
+  
   console.log("domain " + domain + " has added " + (timeNow - curTab_start) + "ms for a total of " + updatedAccum);
   }
   curTab = newTab;
   curTab_start = timeNow;
   chrome.tabs.executeScript(null, {file:"black.js"});
+  // chrome.tabs.sendMessage(newTab.tabId, {greeting: "1"}, function(response) {
+  //   console.log(response.farewell);
+  // });
+
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    alert('hi!');
+  chrome.tabs.sendMessage(tabs[0].id, {greeting: "1"}, function(response) {
+    console.log(response.farewell);
+  });
+});
 
 }
 
