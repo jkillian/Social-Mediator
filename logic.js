@@ -49,10 +49,23 @@ function updateTime(newTab){
   // chrome.tabs.sendMessage(newTab.tabId, {greeting: "1"}, function(response) {
   //   console.log(response.farewell);
   // });
-  curOpac = localStorage["opacity://" + getDomain(newTab.url)];
+  var nd = getDomain(newTab.url);
+  curOpac = localStorage["opacity://" + nd];
   console.log('logic saved opac = ' + curOpac);
-  chrome.tabs.sendMessage(newTab.id, {greeting: curOpac});
+  var oldTime = localStorage["time://" + nd];
+  var timeDiff = timeNow - oldTime;
+  if(!curOpac || curOpac == undefined || isNaN(curOpac)) {
 
+  }
+  else {
+    curOpac = Math.min(1, Math.max(0,curOpac) + (timeDiff/1000)*.02);
+  }
+  
+  chrome.storage.local.get("watchedSites", function(data){
+      if(data.watchedSites.indexOf(domain) != -1) {
+        chrome.tabs.sendMessage(newTab.id, {greeting: curOpac});
+      }
+  });
 }
 
 function getDomain(url){
